@@ -4,7 +4,6 @@ using Xunit.Abstractions;
 namespace GitTools.Testing.Tests
 {
     using System;
-    using System.Runtime.Remoting.Messaging;
     using JetBrains.Annotations;
     using Logging;
 

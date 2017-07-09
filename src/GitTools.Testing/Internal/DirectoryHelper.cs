@@ -47,10 +47,8 @@
 
             if (!Directory.Exists(directoryPath))
             {
-                Trace.WriteLine(
-                    string.Format("Directory '{0}' is missing and can't be removed.",
-                        directoryPath));
-
+                var message = string.Format("Directory '{0}' is missing and can't be removed.", directoryPath);
+                WriteTrace(message);
                 return;
             }
 
@@ -75,13 +73,21 @@
             }
             catch (IOException)
             {
-                Trace.WriteLine(string.Format("{0}The directory '{1}' could not be deleted!" +
+                var message = string.Format("{0}The directory '{1}' could not be deleted!" +
                                               "{0}Most of the time, this is due to an external process accessing the files in the temporary repositories created during the test runs, and keeping a handle on the directory, thus preventing the deletion of those files." +
                                               "{0}Known and common causes include:" +
                                               "{0}- Windows Search Indexer (go to the Indexing Options, in the Windows Control Panel, and exclude the bin folder of LibGit2Sharp.Tests)" +
                                               "{0}- Antivirus (exclude the bin folder of LibGit2Sharp.Tests from the paths scanned by your real-time antivirus){0}",
-                    Environment.NewLine, Path.GetFullPath(directoryPath)));
+                    Environment.NewLine, Path.GetFullPath(directoryPath));
+                WriteTrace(message);
             }
         }
+
+        private static void WriteTrace(string message)
+        {
+            Trace.WriteLine(message);
+        }
+
+
     }
 }

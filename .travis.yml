@@ -1,10 +1,13 @@
 language: csharp
 solution: src/GitTools.Testing.sln
 sudo: false
+dotnet: 1.0.3
+dist: trusty
+mono: latest
+
 install:
   # - sudo nuget update -self
-  - nuget restore src/GitTools.Testing.sln
-  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory ./src/packages
+  - dotnet restore "./src/GitTools.Testing.sln"
 script:
-  - xbuild ./src/GitTools.Testing.sln /property:Configuration="Debug" /verbosity:detailed
-  - mono --debug --runtime=v4.0.30319 ./src/packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./src/GitTools.Testing.Tests/bin/Debug/GitTools.Testing.Tests.dll
+  - dotnet build "./src/GitTools.Testing.sln" --configuration Debug /verbosity:detailed
+  - dotnet test "./src/GitTools.Testing.Tests/GitTools.Testing.Tests.csproj"

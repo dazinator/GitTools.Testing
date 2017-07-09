@@ -38,7 +38,8 @@ namespace GitTools.Testing
 
             initialMasterAction(Repository);
 
-            Repository.Checkout(Repository.CreateBranch("develop"));
+            var branch = Repository.CreateBranch("develop");
+            LibGit2Sharp.Commands.Checkout(Repository, branch);          
             Repository.MakeACommit();
         }
     }
